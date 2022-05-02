@@ -1,3 +1,7 @@
+/**
+A super basic engine that gets saved on github and copy/pasted for p5js   projects.
+*/
+
 // global entity id assignment
 var ENTITY_ID = 0;
 
