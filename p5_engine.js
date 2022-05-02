@@ -1,3 +1,4 @@
+/* START OF GAME ENGINE */
 /**
 A super basic engine that gets saved on github and copy/pasted for p5js   projects.
 */
@@ -14,7 +15,7 @@ function engineSetup() {}
 
 function engineDraw() {
   // loop all of the entities
-  entities.foreach(e => e.loop());
+  entities.forEach(e => e.update());
 }
 
 
@@ -25,7 +26,7 @@ function addEntity(entity) {
 
 // remove entity
 function deleteEntity(entity) {
-  entities.foreach( e => { if(e.id === entity.id) { entities.splice(entities.indexOf(e), 1) } } );
+  entities.forEach( e => { if(e.id === entity.id) { entities.splice(entities.indexOf(e), 1) } } );
 }
 
 
@@ -115,3 +116,25 @@ class Entity {
   // drawing that gets inherited
   draw() {}
 }
+
+
+// Keyboard and Mouse events
+var mouseClick = false;
+var pressedKey = null;
+
+// check if mouse was clicked
+function mousePressed() {
+  mouseClick = true;
+}
+function mouseReleased() {
+  mouseClick = false;
+}
+
+// check if certian key clicked
+function keyPressed() {
+  pressedKey = keyCode;
+}
+function keyReleased() {
+  pressedKey = null;
+}
+/* END OF GAME ENGINE */
