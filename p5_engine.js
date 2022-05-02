@@ -10,13 +10,9 @@ const entities = [];
 
 
 // NOTE: THESE ARE FOR IMPORT, AND AREN'T ACTUALLY p5js RELATED
-function engineSetup() {
-  createCanvas(400, 400);
-}
+function engineSetup() {}
 
 function engineDraw() {
-  background(220);
-
   // loop all of the entities
   entities.foreach(e => e.loop());
 }
