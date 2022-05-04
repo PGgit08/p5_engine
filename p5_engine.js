@@ -3,14 +3,28 @@
 A super basic engine that gets saved on github and copy/pasted for p5js   projects.
 */
 
-// global entity id assignment
+// global entity id and image id assignment
 var ENTITY_ID = 0;
+var IMAGE_ID = 0;
 
 // All of the Entities in the game
 const entities = [];
 
+// All of the images in the game
+const images = [];
+
+
+// Keyboard and Mouse events
+var pressedKey = null;
+var pressedArrow = null;
+var mouseClick = false;
+
 
 // NOTE: THESE ARE FOR IMPORT, AND AREN'T ACTUALLY p5js RELATED
+function engine_preLoad(){
+  images.forEach(i => i.img = loadImage(i.file));
+}
+
 function engineSetup() {}
 
 function engineDraw() {
@@ -19,7 +33,7 @@ function engineDraw() {
 }
 
 
-// add entity
+// add entity(s)
 function addEntity(entity) {
   entities.push(entity);
 }
@@ -29,6 +43,33 @@ function deleteEntity(entity) {
   entities.forEach( e => { if(e.id === entity.id) { entities.splice(entities.indexOf(e), 1) } } );
 }
 
+
+// add image
+function addImage(image) {
+  images.push(image);
+}
+
+// remove entity
+function deleteImage(image) {
+  images.forEach( i => { if(i.id === image.id) { images.splice(images.indexOf(i), 1) } } );
+}
+
+
+// An Image
+class Image {
+  constructor(file){
+    this.id = IMAGE_ID ++;
+    
+    // file location and actual image
+    this.file = file;
+    this.img = null;
+  }
+  
+  // to draw the actual image
+  drawImg(x, y, w, h){
+    image(this.img, x, y, w || null, h || null);
+  }
+}
 
 // A basic entity that has UI (boilerplate)
 class Entity {
@@ -69,10 +110,10 @@ class Entity {
     }
 
     // screen bound collisions
-    if (this.x === 0 || this.x === screenW) {
+    if (this.x === 0 || this.x === width) {
       this.events.push("x_bound");
     }
-    if (this.y === 0 || this.y === screenH) {
+    if (this.y === 0 || this.y === height) {
       this.events.push("y_bound");
     }
 
@@ -118,10 +159,6 @@ class Entity {
 }
 
 
-// Keyboard and Mouse events
-var mouseClick = false;
-var pressedKey = null;
-
 // check if mouse was clicked
 function mousePressed() {
   mouseClick = true;
@@ -132,9 +169,10 @@ function mouseReleased() {
 
 // check if certian key clicked
 function keyPressed() {
-  pressedKey = keyCode;
+  pressedKey = key;
+  pressedArrow = keyCode;
 }
 function keyReleased() {
-  pressedKey = null;
+  pressedKey = pressedArrow = null;
 }
 /* END OF GAME ENGINE */
